@@ -1,1 +1,1 @@
-{"buildCommand":"npm install --legacy-peer-deps && npm run build","framework":"angular"}
+{"installCommand":"npm install --legacy-peer-deps","buildCommand":"npm run build","framework":"angular"}
