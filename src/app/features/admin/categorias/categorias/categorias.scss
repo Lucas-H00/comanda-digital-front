@@ -1,0 +1,52 @@
+.page {
+  max-width: 900px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 0 0 4px;
+  }
+
+  p {
+    color: #888;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
+.form-card {
+  border-radius: 12px !important;
+  margin-bottom: 24px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-acoes {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+}
+
+.tabela-card {
+  border-radius: 12px !important;
+}
+
+.tabela-completa {
+  width: 100%;
+}

@@ -1,1 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$magenta-palette,
+        tertiary: mat.$violet-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body {
+  color-scheme: light;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+
+@media (max-width: 600px) {
+  .mat-mdc-table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+.sidenav .mat-mdc-list-item-unscoped-content,
+.sidenav .mdc-list-item__primary-text,
+.sidenav .mat-mdc-nav-list .mat-mdc-list-item span,
+.sidenav a.mat-mdc-list-item span {
+  color: white !important;
+  opacity: 1 !important;
+}
+
+.sidenav mat-nav-list mat-icon {
+  color: #ce93d8 !important;
+}

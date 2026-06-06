@@ -1,0 +1,73 @@
+<!-- HEADER -->
+<header class="header">
+  <div class="header-content">
+    <div class="logo">
+      <mat-icon>restaurant</mat-icon>
+      <span>Comanda Digital</span>
+    </div>
+    <button mat-icon-button class="carrinho-btn" (click)="irParaCarrinho()">
+      <mat-icon [matBadge]="totalCarrinho" [matBadgeHidden]="totalCarrinho === 0" matBadgeColor="warn">
+        shopping_cart
+      </mat-icon>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Peça agora, receba em casa 🍔</h1>
+  <p>Dark Kitchen — comida artesanal direto da cozinha pra você</p>
+</section>
+
+<!-- FILTRO DE CATEGORIAS -->
+<section class="filtros">
+  <div class="filtros-content">
+    <button mat-stroked-button
+      [class.ativo]="categoriaSelecionada() === null"
+      (click)="filtrarCategoria(null)">
+      Todos
+    </button>
+    @for (cat of categorias; track cat.id) {
+      <button mat-stroked-button
+        [class.ativo]="categoriaSelecionada() === cat.id"
+        (click)="filtrarCategoria(cat.id)">
+        {{ cat.nome }}
+      </button>
+    }
+  </div>
+</section>
+
+<!-- GRID DE PRATOS -->
+<main class="pratos-container">
+  @if (pratosFiltrados.length === 0) {
+    <div class="vazio">
+      <mat-icon>search_off</mat-icon>
+      <p>Nenhum prato encontrado nessa categoria.</p>
+    </div>
+  }
+
+  <div class="pratos-grid">
+    @for (prato of pratosFiltrados; track prato.id) {
+      <mat-card class="prato-card">
+        <img mat-card-image [src]="prato.fotoUrl" [alt]="prato.nome" class="prato-img">
+        <mat-card-content>
+          <div class="prato-categoria">{{ getCategoriaNome(prato.categoriaId) }}</div>
+          <h3 class="prato-nome">{{ prato.nome }}</h3>
+          <p class="prato-desc">{{ prato.descricao }}</p>
+          <div class="prato-info">
+            <span class="tempo">
+              <mat-icon>schedule</mat-icon> {{ prato.tempoPreparo }} min
+            </span>
+          </div>
+        </mat-card-content>
+        <mat-card-actions class="prato-actions">
+          <span class="preco">{{ prato.precoVenda | currency:'BRL' }}</span>
+          <button mat-raised-button color="primary" (click)="adicionarAoCarrinho(prato)">
+            <mat-icon>add_shopping_cart</mat-icon>
+            Adicionar
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </div>
+</main>

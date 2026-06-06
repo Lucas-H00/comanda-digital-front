@@ -1,0 +1,91 @@
+<div class="auth-page">
+  <div class="auth-container">
+
+    <div class="auth-logo">
+      <span>🍔</span>
+      <h1>Comanda Digital</h1>
+    </div>
+
+    <mat-card class="auth-card">
+      <mat-card-content>
+        <h2>Criar conta</h2>
+        <p class="subtitulo">Preencha seus dados para se cadastrar</p>
+
+        <form [formGroup]="form" (ngSubmit)="cadastrar()">
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nome completo</mat-label>
+            <input matInput formControlName="nome">
+            <mat-icon matSuffix>person</mat-icon>
+            @if (nome?.hasError('required') && nome?.touched) {
+              <mat-error>Nome é obrigatório</mat-error>
+            }
+            @if (nome?.hasError('minlength') && nome?.touched) {
+              <mat-error>Mínimo 3 caracteres</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>E-mail</mat-label>
+            <input matInput type="email" formControlName="email">
+            <mat-icon matSuffix>email</mat-icon>
+            @if (email?.hasError('required') && email?.touched) {
+              <mat-error>E-mail é obrigatório</mat-error>
+            }
+            @if (email?.hasError('email') && email?.touched) {
+              <mat-error>E-mail inválido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="telefone" placeholder="(11) 99999-9999">
+            <mat-icon matSuffix>phone</mat-icon>
+            @if (telefone?.hasError('required') && telefone?.touched) {
+              <mat-error>Telefone é obrigatório</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Endereço de entrega</mat-label>
+            <input matInput formControlName="endereco" placeholder="Rua, número, bairro">
+            <mat-icon matSuffix>location_on</mat-icon>
+            @if (endereco?.hasError('required') && endereco?.touched) {
+              <mat-error>Endereço é obrigatório</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Senha</mat-label>
+            <input matInput [type]="senhaVisivel ? 'text' : 'password'" formControlName="senha">
+            <button mat-icon-button matSuffix type="button"
+              (click)="senhaVisivel = !senhaVisivel">
+              <mat-icon>{{ senhaVisivel ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            @if (senha?.hasError('required') && senha?.touched) {
+              <mat-error>Senha é obrigatória</mat-error>
+            }
+            @if (senha?.hasError('minlength') && senha?.touched) {
+              <mat-error>Mínimo 6 caracteres</mat-error>
+            }
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit"
+            class="btn-submit" [disabled]="form.invalid || carregando">
+            @if (carregando) { <span>Criando conta...</span> }
+            @else { <span>Criar conta</span> }
+          </button>
+
+        </form>
+
+        <mat-divider class="divider"></mat-divider>
+
+        <p class="link-login">
+          Já tem conta?
+          <a routerLink="/login">Fazer login</a>
+        </p>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

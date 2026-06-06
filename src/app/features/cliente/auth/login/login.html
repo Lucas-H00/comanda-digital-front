@@ -1,0 +1,70 @@
+<div class="auth-page">
+  <div class="auth-container">
+
+    <div class="auth-logo">
+      <span>🍔</span>
+      <h1>Comanda Digital</h1>
+    </div>
+
+    <mat-card class="auth-card">
+      <mat-card-content>
+        <h2>Entrar na conta</h2>
+        <p class="subtitulo">Faça login para finalizar seu pedido</p>
+
+        <form [formGroup]="form" (ngSubmit)="entrar()">
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>E-mail</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="seu@email.com">
+            <mat-icon matSuffix>email</mat-icon>
+            @if (email?.hasError('required') && email?.touched) {
+              <mat-error>E-mail é obrigatório</mat-error>
+            }
+            @if (email?.hasError('email') && email?.touched) {
+              <mat-error>E-mail inválido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Senha</mat-label>
+            <input matInput
+              [type]="senhaVisivel ? 'text' : 'password'"
+              formControlName="senha">
+            <button mat-icon-button matSuffix type="button"
+              (click)="senhaVisivel = !senhaVisivel">
+              <mat-icon>{{ senhaVisivel ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            @if (senha?.hasError('required') && senha?.touched) {
+              <mat-error>Senha é obrigatória</mat-error>
+            }
+            @if (senha?.hasError('minlength') && senha?.touched) {
+              <mat-error>Mínimo 6 caracteres</mat-error>
+            }
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" type="submit"
+            class="btn-submit" [disabled]="form.invalid || carregando">
+            {{ carregando ? 'Entrando...' : 'Entrar' }}
+          </button>
+
+        </form>
+
+        <mat-divider class="divider"></mat-divider>
+
+        <p class="link-cadastro">
+          Não tem conta?
+          <a routerLink="/cadastro">Criar conta grátis</a>
+        </p>
+
+        <p class="link-voltar">
+          <a (click)="voltar()" style="cursor:pointer">← Voltar ao cardápio</a>
+        </p>
+
+        <div class="dica-admin">
+          <small>💡 Admin: admin@email.com / senha123</small>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+.page {
+  max-width: 1100px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 0 0 4px;
+  }
+
+  p {
+    color: #888;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
+.filtro-select {
+  min-width: 200px;
+}
+
+.pedidos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.pedido-card {
+  border-radius: 12px !important;
+  transition: box-shadow 0.2s;
+
+  &.selecionado {
+    box-shadow: 0 4px 20px rgba(106, 27, 154, 0.2) !important;
+    border: 1px solid #ce93d8;
+  }
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.pedido-id {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #6a1b9a;
+  margin-right: 8px;
+}
+
+.pedido-cliente {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.pedido-endereco,
+.pedido-hora,
+.pedido-obs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: #666;
+  margin: 4px 0;
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.divider {
+  margin: 12px 0 !important;
+}
+
+.itens-lista {
+  margin-top: 8px;
+}
+
+.item-linha {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  padding: 4px 0;
+  color: #555;
+}
+
+.item-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0 4px;
+  font-size: 0.95rem;
+}
+
+.pedido-acoes {
+  display: flex !important;
+  gap: 8px !important;
+  flex-wrap: wrap;
+  padding: 8px 16px 16px !important;
+}
+
+.vazio {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 64px;
+  color: #bbb;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}

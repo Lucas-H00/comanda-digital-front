@@ -1,0 +1,191 @@
+// HEADER
+.header {
+  background: #6a1b9a;
+  color: white;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+
+  &-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.carrinho-btn {
+  color: white !important;
+}
+
+// HERO
+.hero {
+  background: linear-gradient(135deg, #6a1b9a, #ab47bc);
+  color: white;
+  text-align: center;
+  padding: 48px 24px;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 8px;
+  }
+
+  p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 0;
+  }
+}
+
+// FILTROS
+.filtros {
+  background: white;
+  border-bottom: 1px solid #eee;
+  padding: 16px 24px;
+  position: sticky;
+  top: 64px;
+  z-index: 99;
+
+  &-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  button {
+    border-radius: 20px !important;
+    transition: all 0.2s;
+
+    &.ativo {
+      background: #6a1b9a !important;
+      color: white !important;
+      border-color: #6a1b9a !important;
+    }
+  }
+}
+
+// GRID
+.pratos-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.pratos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.prato-card {
+  border-radius: 12px !important;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important;
+  }
+}
+
+.prato-img {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.prato-categoria {
+  font-size: 0.75rem;
+  color: #6a1b9a;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.prato-nome {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #1a1a1a;
+}
+
+.prato-desc {
+  font-size: 0.88rem;
+  color: #666;
+  line-height: 1.5;
+  margin: 0 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.prato-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #999;
+  font-size: 0.82rem;
+
+  .tempo {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+.prato-actions {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 8px 16px 16px !important;
+}
+
+.preco {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #6a1b9a;
+}
+
+.vazio {
+  text-align: center;
+  padding: 64px;
+  color: #999;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+// RESPONSIVO
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.4rem; }
+  .pratos-grid { grid-template-columns: 1fr; }
+  .pratos-container { padding: 16px; }
+}

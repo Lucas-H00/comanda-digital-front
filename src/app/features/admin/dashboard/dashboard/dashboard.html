@@ -1,0 +1,86 @@
+<div class="dashboard">
+
+  <h1 class="page-titulo">Dashboard</h1>
+
+  <!-- KPIs -->
+  <div class="kpis-grid">
+    @for (kpi of kpis; track kpi.label) {
+      <mat-card class="kpi-card">
+        <mat-card-content>
+          <div class="kpi-icon" [style.background]="kpi.cor + '22'">
+            <mat-icon [style.color]="kpi.cor">{{ kpi.icon }}</mat-icon>
+          </div>
+          <div class="kpi-info">
+            <span class="kpi-valor">{{ kpi.valor }}</span>
+            <span class="kpi-label">{{ kpi.label }}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+
+  <div class="grid-dois">
+
+    <!-- ALERTAS DE ESTOQUE -->
+    <mat-card class="card-secao">
+      <mat-card-header>
+        <mat-icon mat-card-avatar style="color:#f44336">warning</mat-icon>
+        <mat-card-title>Alertas de Estoque</mat-card-title>
+        <mat-card-subtitle>Ingredientes abaixo do mínimo</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        @for (alerta of alertasEstoque; track alerta.nome) {
+          <div class="alerta-item">
+            <div class="alerta-info">
+              <span class="alerta-nome">{{ alerta.nome }}</span>
+              <span class="alerta-qtd">
+                {{ alerta.atual }}{{ alerta.unidade }} / mín. {{ alerta.minimo }}{{ alerta.unidade }}
+              </span>
+            </div>
+            <mat-chip highlighted color="warn">Crítico</mat-chip>
+          </div>
+        }
+      </mat-card-content>
+    </mat-card>
+
+    <!-- TOP PRATOS -->
+    <mat-card class="card-secao">
+      <mat-card-header>
+        <mat-icon mat-card-avatar style="color:#ff9800">star</mat-icon>
+        <mat-card-title>Top 5 Pratos</mat-card-title>
+        <mat-card-subtitle>Mais vendidos hoje</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        @for (prato of topPratos; track prato.nome; let i = $index) {
+          <div class="top-item">
+            <span class="top-pos">#{{ i + 1 }}</span>
+            <span class="top-nome">{{ prato.nome }}</span>
+            <span class="top-vendas">{{ prato.vendas }} vendas</span>
+          </div>
+        }
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+
+  <!-- ATALHOS -->
+  <mat-card class="card-secao">
+    <mat-card-header>
+      <mat-card-title>Acesso Rápido</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="atalhos">
+        <button mat-raised-button color="primary" routerLink="/admin/pratos">
+          <mat-icon>restaurant_menu</mat-icon> Gerenciar Pratos ({{ totalPratos }})
+        </button>
+        <button mat-raised-button routerLink="/admin/categorias">
+          <mat-icon>category</mat-icon> Categorias ({{ totalCategorias }})
+        </button>
+        <button mat-raised-button routerLink="/admin/pedidos">
+          <mat-icon>receipt_long</mat-icon> Ver Pedidos
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>

@@ -1,0 +1,116 @@
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Pedidos</h1>
+      <p>Acompanhe e gerencie os pedidos em tempo real</p>
+    </div>
+    <mat-form-field appearance="outline" class="filtro-select">
+      <mat-label>Filtrar por status</mat-label>
+      <mat-select [value]="filtroStatus()"
+        (selectionChange)="filtroStatus.set($event.value)">
+        <mat-option value="TODOS">Todos</mat-option>
+        <mat-option value="RECEBIDO">Recebido</mat-option>
+        <mat-option value="CONFIRMADO">Confirmado</mat-option>
+        <mat-option value="EM_PREPARO">Em Preparo</mat-option>
+        <mat-option value="PRONTO">Pronto</mat-option>
+        <mat-option value="SAIU_ENTREGA">Saiu p/ Entrega</mat-option>
+        <mat-option value="FINALIZADO">Finalizado</mat-option>
+        <mat-option value="CANCELADO">Cancelado</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  @if (carregando) {
+    <div style="text-align:center;padding:48px">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+
+  <div class="pedidos-grid">
+    @for (pedido of pedidosFiltrados; track pedido.id) {
+      <mat-card class="pedido-card"
+        [class.selecionado]="pedidoSelecionado()?.id === pedido.id">
+
+        <mat-card-header>
+          <div class="pedido-header">
+            <div>
+              <span class="pedido-id">#{{ pedido.id }}</span>
+              <span class="pedido-cliente">{{ pedido.clienteNome }}</span>
+            </div>
+            <mat-chip [style.background]="getStatusCor(pedido.status)" style="color:white">
+              {{ getStatusLabel(pedido.status) }}
+            </mat-chip>
+          </div>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p class="pedido-endereco">
+            <mat-icon>location_on</mat-icon> {{ pedido.enderecoEntrega || 'Não informado' }}
+          </p>
+          <p class="pedido-hora">
+            <mat-icon>schedule</mat-icon>
+            {{ pedido.createdAt | date:'dd/MM HH:mm' }}
+          </p>
+          @if (pedido.observacoes) {
+            <p class="pedido-obs">
+              <mat-icon>chat_bubble</mat-icon> {{ pedido.observacoes }}
+            </p>
+          }
+
+          @if (pedidoSelecionado()?.id === pedido.id) {
+            <mat-divider class="divider"></mat-divider>
+            <div class="itens-lista">
+              @for (item of pedido.itens; track item.pratoId) {
+                <div class="item-linha">
+                  <span>{{ item.quantidade }}x {{ item.pratoNome }}</span>
+                  <span>{{ item.precoUnitario * item.quantidade | currency:'BRL' }}</span>
+                </div>
+              }
+              <mat-divider></mat-divider>
+              <div class="item-total">
+                <strong>Total</strong>
+                <strong>{{ pedido.valorTotal | currency:'BRL' }}</strong>
+              </div>
+            </div>
+          }
+        </mat-card-content>
+
+        <mat-card-actions class="pedido-acoes">
+          <button mat-stroked-button (click)="verDetalhe(pedido)">
+            <mat-icon>
+              {{ pedidoSelecionado()?.id === pedido.id ? 'expand_less' : 'expand_more' }}
+            </mat-icon>
+            {{ pedidoSelecionado()?.id === pedido.id ? 'Ocultar' : 'Ver itens' }}
+          </button>
+
+          @if (getProximoStatus(pedido.status)) {
+            <button mat-raised-button color="primary" (click)="avancarStatus(pedido)">
+              <mat-icon>arrow_forward</mat-icon>
+              {{ getStatusLabel(getProximoStatus(pedido.status)!) }}
+            </button>
+          }
+
+          @if (pedido.status !== 'FINALIZADO' && pedido.status !== 'CANCELADO') {
+            <button mat-icon-button color="warn" (click)="cancelar(pedido)" matTooltip="Cancelar">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          }
+        </mat-card-actions>
+
+      </mat-card>
+    }
+
+    @if (pedidosFiltrados.length === 0 && !carregando) {
+      <div class="vazio">
+        <mat-icon>receipt_long</mat-icon>
+        <p>Nenhum pedido encontrado</p>
+      </div>
+    }
+  </div>
+
+  <div style="margin-top:16px">
+    <button mat-stroked-button (click)="carregarPedidos()">
+      <mat-icon>refresh</mat-icon> Atualizar
+    </button>
+  </div>
+</div>

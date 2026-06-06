@@ -1,0 +1,100 @@
+<div class="carrinho-page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-content">
+      <button mat-icon-button (click)="voltarCardapio()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span class="titulo">Meu Carrinho</span>
+      <span></span>
+    </div>
+  </header>
+
+  <div class="conteudo">
+
+    <!-- CARRINHO VAZIO -->
+    @if (itens.length === 0) {
+      <div class="vazio">
+        <mat-icon>remove_shopping_cart</mat-icon>
+        <h2>Seu carrinho está vazio</h2>
+        <p>Adicione itens do cardápio para continuar</p>
+        <button mat-raised-button color="primary" (click)="voltarCardapio()">
+          Ver cardápio
+        </button>
+      </div>
+    }
+
+    <!-- LISTA DE ITENS -->
+    @if (itens.length > 0) {
+      <div class="itens-lista">
+        @for (item of itens; track item.prato.id) {
+          <mat-card class="item-card">
+            <div class="item-content">
+              <img [src]="item.prato.fotoUrl" [alt]="item.prato.nome" class="item-img">
+              <div class="item-info">
+                <h3>{{ item.prato.nome }}</h3>
+                @if (item.observacoes) {
+                  <p class="obs">Obs: {{ item.observacoes }}</p>
+                }
+                <span class="item-preco">{{ item.prato.precoVenda | currency:'BRL' }}</span>
+              </div>
+              <div class="item-acoes">
+                <div class="quantidade-ctrl">
+                  <button mat-icon-button (click)="diminuir(item.prato.id, item.quantidade)">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <span class="qtd">{{ item.quantidade }}</span>
+                  <button mat-icon-button (click)="aumentar(item.prato.id, item.quantidade)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+                <span class="subtotal">
+                  {{ item.prato.precoVenda * item.quantidade | currency:'BRL' }}
+                </span>
+                <button mat-icon-button color="warn" (click)="remover(item.prato.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </mat-card>
+        }
+      </div>
+
+      <!-- RESUMO -->
+      <div class="resumo">
+        <mat-card class="resumo-card">
+          <mat-card-content>
+            <h2>Resumo do pedido</h2>
+            <mat-divider></mat-divider>
+
+            @for (item of itens; track item.prato.id) {
+              <div class="resumo-linha">
+                <span>{{ item.quantidade }}x {{ item.prato.nome }}</span>
+                <span>{{ item.prato.precoVenda * item.quantidade | currency:'BRL' }}</span>
+              </div>
+            }
+
+            <mat-divider></mat-divider>
+            <div class="resumo-total">
+              <span>Total</span>
+              <span>{{ total | currency:'BRL' }}</span>
+            </div>
+
+            <button mat-raised-button color="primary" class="btn-finalizar"
+              (click)="finalizarPedido()">
+              <mat-icon>check_circle</mat-icon>
+              Finalizar Pedido
+            </button>
+
+            <button mat-stroked-button class="btn-voltar"
+              (click)="voltarCardapio()">
+              Continuar comprando
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+
+  </div>
+</div>
