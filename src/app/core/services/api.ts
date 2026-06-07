@@ -35,7 +35,7 @@ export interface IngredienteAPI {
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private base = 'http://localhost:8080/api';
+  private base = 'https://comanda-digital-back-production.up.railway.app/api';
 
   constructor(private http: HttpClient) {}
 
